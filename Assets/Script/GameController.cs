@@ -16,17 +16,9 @@ public class GameController: MonoBehaviour {
     public Transform playerTransform;
     //public JsonObject objetoRecibido;
 
-    private Timer timer1;
-    private int timer1interval = 200;
-
-    // Start is called before the first frame update
-
-
-
     void OnEnable() {
         StartCoroutine(Unirse());
-        //StartCoroutine(AutoupdateAccionPosicion());
-        AutoupdateAccionPosicion();
+        InvokeRepeating("AccionPosicion", 1.0f, 0.5f);
     }
 
     IEnumerator Unirse() {
@@ -43,27 +35,13 @@ public class GameController: MonoBehaviour {
         }
     }
 
-    public void AutoupdateAccionPosicion()
+    public IEnumerator AccionPosicion()
     {
-        timer1 = new Timer();
-        timer1.Elapsed += new ElapsedEventHandler( RepetidorAccionPosicion );
-        timer1.Enabled = true;
-        timer1.Interval = 10 ; // in miliseconds
-        timer1.Start();
-        
-    }
-
-    public void RepetidorAccionPosicion(object source, ElapsedEventArgs e)
-    {
-        AccionPosicion();
-    }
-    public void AccionPosicion()
-    {
-        string jsonEnvio = "{\"ID\":2,\"Transform\":{\"X\":1,\"Y\":2,\"Z\":3},\"Movil\":true,\"Animacion\":\"\"}";
+        string jsonEnvio = "{\"ID\":2,\"Transform\":{\"X\":"+playerTransform.position.x+",\"Y\":"+playerTransform.position.y+",\"Z\":"+playerTransform.position.z+"},\"Movil\":true,\"Animacion\":\"\"}";
         Debug.Log(message: jsonEnvio);
         UnityWebRequest www = UnityWebRequest.Post("http://" + serverIp + accionPosicionEndPoint, jsonEnvio);
-        www.SendWebRequest();
-        Debug.Log(www.downloadHandler.text);
+        yield return www.SendWebRequest();
+
         if (www.isNetworkError || www.isHttpError)
         {
             Debug.Log(www.error);
@@ -72,12 +50,5 @@ public class GameController: MonoBehaviour {
         {
             Debug.Log(www.downloadHandler.text);
         }
-    }
-
-
-
-    // Update is called once per frame
-    void Update() {
-
     }
 }
