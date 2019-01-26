@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_Rigidbody;              // Reference used to move the tank.
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
+    private float m_state;
     
 
     private void Awake()
@@ -36,7 +38,6 @@ public class PlayerController : MonoBehaviour
         // When the tank is turned off, set it to kinematic so it stops moving.
         m_Rigidbody.isKinematic = true;
     }
-
 
     private void Start()
     {
