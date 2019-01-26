@@ -26,10 +26,9 @@ public class GameController: MonoBehaviour {
         return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError) {
-            Debug.Log(www.error);
+            //Debug.Log(www.error);
         } else {
-            string recibido = www.downloadHandler.text;
-            Debug.Log( recibido );
+            Debug.Log( www.downloadHandler.text );
             yield return AccionPosicion();
             //objetoRecibido = Windows.Data.Json.JsonValue.Parse( recibido ).GetObject();
         }
@@ -37,21 +36,21 @@ public class GameController: MonoBehaviour {
 
     public IEnumerator AccionPosicion()
     {
-        Debug.Log("AccionPosicion");
+        //Debug.Log("AccionPosicion");
         string jsonEnvio = "{\"ID\":3,\"Transform\":{\"X\":\""+playerTransform.position.x+"\",\"Y\":\""+playerTransform.position.y+"\",\"Z\":\""+playerTransform.position.z+"\"},\"Movil\":true,\"Animacion\":\"\"}";
-        Debug.Log(jsonEnvio);
+        //Debug.Log(jsonEnvio);
         UnityWebRequest www = UnityWebRequest.Post("http://" + serverIp + accionPosicionEndPoint, jsonEnvio);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log(www.error);
+            //Debug.Log(www.error);
         }
         else
         {
             Debug.Log(www.downloadHandler.text);
         }
-        Debug.Log("Going to wait");
+        //Debug.Log("Going to wait");
         yield return new WaitForSeconds(0.5f);
         yield return AccionPosicion();
     }
