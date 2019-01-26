@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float m_Speed = 12f;                 // How fast the tank moves forward and back.
+    public float m_Speed = 0.2f;                 // How fast the tank moves forward and back.
     public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
     
     private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
     private float m_state;
+    private Animator animator;
     
 
     private void Awake()
@@ -44,15 +45,31 @@ public class PlayerController : MonoBehaviour
         // The axes names are based on player number.
         m_MovementAxisName = "Vertical";
         m_TurnAxisName = "Horizontal";
+        animator = GetComponent<Animator>();
     }
 
 
     private void Update()
     {
         // Store the value of both input axes.
+
         m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
+
+        Debug.Log(m_MovementInputValue);
+        Debug.Log(m_TurnInputValue);
+        if (Input.GetButtonDown("Fire1"))
+        {
+            animator.SetBool("Correr", true);
+        }
+        else
+        {
+            if ((m_MovementInputValue == 0.0f) & (m_TurnInputValue == 0.0f)) animator.SetBool("Gatejar", false);
+            else animator.SetBool("Gatejar", true);
+        }
         
+        
+        if (Input.GetButtonUp("Fire1")) animator.SetBool("Correr",false);
     }
 
     private void FixedUpdate()
@@ -66,10 +83,13 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-        Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+        Vector3 movement;
+        movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+        if (animator.GetBool("Correr")) movement *= 10;
 
-        // Apply this movement to the rigidbody's position.
-        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+
+            // Apply this movement to the rigidbody's position.
+            m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
     }
 
 
@@ -84,5 +104,6 @@ public class PlayerController : MonoBehaviour
         // Apply this rotation to the rigidbody's rotation.
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
+    
 }
 
