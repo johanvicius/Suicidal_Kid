@@ -18,7 +18,6 @@ public class GameController: MonoBehaviour {
 
     void OnEnable() {
         StartCoroutine(Unirse());
-        InvokeRepeating("AccionPosicion", 1.0f, 0.5f);
     }
 
     IEnumerator Unirse() {
@@ -31,6 +30,7 @@ public class GameController: MonoBehaviour {
         } else {
             string recibido = www.downloadHandler.text;
             Debug.Log( recibido );
+            AccionPosicion();
             //objetoRecibido = Windows.Data.Json.JsonValue.Parse( recibido ).GetObject();
         }
     }
@@ -50,5 +50,8 @@ public class GameController: MonoBehaviour {
         {
             Debug.Log(www.downloadHandler.text);
         }
+
+        yield return WaitForSeconds(0.5f);
+        AccionPosicion();
     }
 }
