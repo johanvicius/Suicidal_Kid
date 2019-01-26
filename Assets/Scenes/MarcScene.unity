@@ -11713,6 +11713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1469002732}
+  - component: {fileID: 1469002733}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -11735,6 +11736,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1469002733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469002731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c17d3463d6d31a4a9e3e8313806d80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverIp: 10.4.179.6
+  serverPort: 80
+  creaEndpoint: /api/crea
+  unirseEndpoint: /api/unirse
+  statusEndpoint: /api/status
 --- !u!1 &1469973271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100822, guid: 3980c3335e476664ebfca2c9410b9e06,
