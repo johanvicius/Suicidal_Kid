@@ -60,12 +60,10 @@ public class GameController: MonoBehaviour {
     }
 
     public void ProcessStatus() {
-        Debug.Log("Prcessign status, child id: "+myID);
         //GameObject flor = Object.Instantiate(flores[tipo], new Vector3(posicion.x, 1f, posicion.y), Quaternion.identity, this.transform);
         foreach(BabyModel tmpBaby in status.Hijos)
         {
             if(tmpBaby.ID != myID) {
-                Debug.Log("Precessing child: "+tmpBaby.ID);
                 if(babies[tmpBaby.ID] == null) {
                     InstantiateBaby(tmpBaby);
                 } else {
