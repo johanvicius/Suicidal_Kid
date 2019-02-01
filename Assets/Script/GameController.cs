@@ -28,7 +28,7 @@ public class GameController: MonoBehaviour {
     }
 
     IEnumerator Unirse() {
-        UnityWebRequest www = UnityWebRequest.Get("http://" + serverIp + unirseEndpoint);
+        UnityWebRequest www = UnityWebRequest.Get("https://" + serverIp + unirseEndpoint);
         yield
         return www.SendWebRequest();
 
@@ -84,7 +84,7 @@ public class GameController: MonoBehaviour {
         //Debug.Log("AccionPosicion");
         string jsonEnvio = "{\"ID\":"+myID+",\"Transform\":{\"X\":\""+playerTransform.position.x+"\",\"Y\":\""+playerTransform.position.y+"\",\"Z\":\""+playerTransform.position.z+"\"},\"Movil\":true,\"Animacion\":\"\"}";
         //Debug.Log(jsonEnvio);
-        UnityWebRequest www = UnityWebRequest.Post("http://" + serverIp + accionPosicionEndPoint, jsonEnvio);
+        UnityWebRequest www = UnityWebRequest.Post("https://" + serverIp + accionPosicionEndPoint, jsonEnvio);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
